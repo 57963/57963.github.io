@@ -43,10 +43,10 @@ function draw(){
 
 function looseScreen() {
     textAlign(CENTER,CENTER);
-    textSize(200);
+    textSize(width/6);
     text("YOU LOSE",width/2,height/2);
-    textSize(100);
-    text("With "+icount+" Is on your boi.",width/2,height/2+150);
+    textSize(width/12);
+    text("With "+icount+" Is on your boi.",width/2,height/2+width/10);
     textSize(50);
     text("Click to restart.",width/2,height-50);
 }
