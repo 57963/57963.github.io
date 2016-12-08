@@ -17,6 +17,7 @@ function setup(){
 var is=[];
 var obs=[];
 var pwrs=[];
+var prts=[];
 var icount;
 
 function draw(){
@@ -27,6 +28,7 @@ function draw(){
         title();
         o=0;
     } else{
+
         if(!lost){
             game();
         }else{
@@ -93,6 +95,7 @@ function game() {
 
         }
     }
+    textStyle(BOLD);
     textAlign(CENTER,CENTER);
     for(var i = 0; i<is.length;i++){
         push();
@@ -101,6 +104,7 @@ function game() {
         text("I",0,0);
         pop();
     }
+    textStyle(NORMAL);
     if(Math.random()<icount*0.0001){
         obs[obs.length]=width;
     }
@@ -120,19 +124,40 @@ function game() {
     if(Math.random()<0.01){
         pwrs[pwrs.length]={type:Math.round(Math.random()*2),x:width,y:Math.random()*height/2};
     }
+    textAlign(CENTER,CENTER);
+    textSize(25);
     for(var i = 0; i<pwrs.length;i++){
         pwrs[i].x-=3.8;
-        ellipse(pwrs[i].x,ly-pwrs[i].y,10,10);
+        //ellipse(pwrs[i].x,ly-pwrs[i].y,20,20);
+        switch (pwrs[i].type){
+            case 0: text("G",pwrs[i].x,height/2-pwrs[i].y);break;
+            case 1: text("P",pwrs[i].x,height/2-pwrs[i].y);break;
+            case 2: text("3",pwrs[i].x,height/2-pwrs[i].y);break;
+        }
         if(pwrs[i].x<0){
             pwrs.splice(i,1);
-        }else if(pwrs[i].x<width/2+15&&pwrs[i].x>width/2-15){
-            if (y+35>pwrs[i].y && y-35<pwrs[i].y) {
-                switch (pwrs[i].type){
-                    case 0: loGrav = 500;break;
-                    case 1: pwrJmp = 500;break;
-                    case 2: triJmp = 500;break;
-                }
-                pwrs.splice(i,1);
+        }else if(dist(width/2,height/2-y,pwrs[i].x,height/2-pwrs[i].y)<35){
+            switch (pwrs[i].type){
+                case 0: loGrav = 500;break;
+                case 1: pwrJmp = 500;break;
+                case 2: triJmp = 500;break;
+            }
+            for(var k = 0;k<6;k++){
+                var ang = Math.random()*TWO_PI;
+                prts[prts.length] = {s:{x:pwrs[i].x,y:height/2-pwrs[i].y},v:{x:sin(ang)*5,y:cos(ang)*5}};
+            }
+            pwrs.splice(i,1);
+        }
+        for(var u =0;u<prts.length;u++){
+            prts[u].v.y+=0.04;
+            if(prts[u].s.x<=0||prts[u].s.x>=width){
+                prts[u].v.x=-prts[u].v.x;
+            }
+            prts[u].s.x+=prts[u].v.x;
+            prts[u].s.y+=prts[u].v.y;
+            ellipse(prts[u].s.x,prts[u].s.y,5,5);
+            if(prts[u].s.y>height){
+                prts.splice(u,1);
             }
         }
     }
