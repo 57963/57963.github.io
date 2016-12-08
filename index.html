@@ -1,1 +1,53 @@
-<marquee style="font-size: 800px">YEAAAAAAAAHHHH BOOOIIIIIIIIIIII</marquee>
+<!DOCTYPE html>
+<title>YEAHBOI</title>
+
+<!-- Styles -->
+<style style="text/css">
+    body{
+        overflow: hidden;
+    }
+    .example1 {
+        position: relative;
+    }
+    .example1 h3 {
+        font-size: 780px;
+        position: absolute;
+        height: 100%;
+        margin: 0;
+        white-space: nowrap;
+        /* Starting position */
+        -moz-transform:translateX(100%);
+        -webkit-transform:translateX(100%);
+        transform:translateX(100%);
+        /* Apply animation to this element */
+        -moz-animation: example1 5s linear infinite;
+        -webkit-animation: example1 5s linear infinite;
+        animation: example1 5s linear infinite;
+    }
+    /* Move it (define the animation) */
+    @-moz-keyframes example1 {
+        0%   { -moz-transform: translateX(100%); }
+        100% { -moz-transform: translateX(-100%); }
+    }
+    @-webkit-keyframes example1 {
+        0%   { -webkit-transform: translateX(100%); }
+        100% { -webkit-transform: translateX(-100%); }
+    }
+    @keyframes example1 {
+        0%   {
+            -moz-transform: translateX(100%); /* Firefox bug fix */
+            -webkit-transform: translateX(100%); /* Firefox bug fix */
+            transform: translateX(100%);
+        }
+        100% {
+            -moz-transform: translateX(-100%); /* Firefox bug fix */
+            -webkit-transform: translateX(-100%); /* Firefox bug fix */
+            transform: translateX(-100%);
+        }
+    }
+</style>
+
+<!-- HTML -->
+<div class="example1">
+    <h3>YEAHHHH BOIIIIIIIIII</h3>
+</div>
