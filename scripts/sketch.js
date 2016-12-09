@@ -121,7 +121,7 @@ function game() {
         if(obs[i]<width/2+10&&obs[i]>width/2-10){
             if (y < 90) {
                 lost=true;
-                high = ((icount+Math.round(Math.random()*20))+10);
+                high = ((icount+Math.round(Math.random()*10))+5);
                 lostFrame = frameCount;
             }
         }
