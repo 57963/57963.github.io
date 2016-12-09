@@ -205,6 +205,10 @@ function mousePressed(){
     }
 }
 
+function keyPressed(){
+    mousePressed();
+}
+
 var boi=" BOI";
 function title(){
     o=width/2;
