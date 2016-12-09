@@ -45,9 +45,17 @@ function loseScreen() {
     text("YOU LOSE",width/2,height/2);
     textAlign(CENTER,TOP);
     textSize(width/12);
-    text("With "+icount+" Is on your boi.",width/2,height/2);
-    textSize(50);
+    text("With "+icount+" i's on your boi.",width/2,height/2);
+    boi = "YEA BO";
     textAlign(CENTER,CENTER);
+    textSize(10);
+    for(var i = 0; i< icount;i++){
+        boi +="I";
+    }
+    text("("+boi+")",width/2,height/2+150);
+
+    textSize(50);
+
     text("Click to restart.",width/2,height-50);
 }
 
@@ -70,12 +78,12 @@ function game() {
         ly = map(frameCount,200,250,height,height/2+30);
 
         textSize(40);
-        text("You have "+icount+" Is on your boi.",10,map(frameCount,200,250,height+50,height-10));
+        text("You have "+icount+" i's on your boi.",10,map(frameCount,200,250,height+50,height-10));
         textSize(map(frameCount,200,250,width/5.5,55));
     }else{
         ly = height/2+30;
         textSize(40);
-        text("You have "+icount+" Is on your boi.",10,height-10);
+        text("You have "+icount+" i's on your boi.",10,height-10);
         textSize(55);
     }
     line(0,ly,width,ly);
