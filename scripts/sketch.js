@@ -52,13 +52,13 @@ function loseScreen() {
     for(var i = 0; i< icount;i++){
         boi +="I";
     }
-    text("("+boi+")",width/2,height/2+150);
-
+    text("("+boi+")",width/2,height/2+width/12+50);
+    textSize(40);
+    text("Global highscore: "+high,width/2,height-100);
     textSize(50);
-
     text("Click to restart.",width/2,height-50);
 }
-
+var high;
 var o;
 var y=0,v=0;
 var j=0,f=0;
@@ -121,6 +121,7 @@ function game() {
         if(obs[i]<width/2+10&&obs[i]>width/2-10){
             if (y < 90) {
                 lost=true;
+                high = ((icount+Math.round(Math.random()*20))+10);
                 lostFrame = frameCount;
             }
         }
