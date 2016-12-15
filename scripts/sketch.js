@@ -18,11 +18,19 @@ var is=[];
 var obs=[];
 var pwrs=[];
 var prts=[];
+var snow = [];
 var icount;
 
 function draw(){
 
-    background(255);
+    if(Math.random()<0.04){
+        snow[snow.length] = {x:Math.random()*width,a:Math.random()*50,y:0,mult:Math.random()*0.06};
+    }
+    fill(0);
+
+
+
+    background(100,150,100);
     if(frameCount<200){
         textSize(width/5.5);
         title();
@@ -32,11 +40,18 @@ function draw(){
         if(!lost){
             game();
         }else{
+            fill(0);
             loseScreen();
         }
 
     }
-
+    noStroke();
+    fill(255);
+    for(var i = 0 ; i<snow.length;i++){
+        var s = snow[i];
+        ellipse(s.x+cos(s.y*s.mult)*s.a,s.y,10,10);
+        s.y++;
+    }
 }
 
 function loseScreen() {
@@ -74,6 +89,7 @@ function game() {
     }
     textAlign(LEFT,BOTTOM);
     var ly;
+    fill(0);
     if(frameCount<250){
         ly = map(frameCount,200,250,height,height/2+30);
 
@@ -86,7 +102,9 @@ function game() {
         text("You have "+icount+" i's on your boi.",10,height-10);
         textSize(55);
     }
+    stroke(255,50,50);
     line(0,ly,width,ly);
+    noStroke();
     if(-o>=textWidth("I")){
         o=0;
         for(var i = is.length-2;i>=0;i--){
@@ -105,11 +123,16 @@ function game() {
     }
     textStyle(BOLD);
     textAlign(CENTER,CENTER);
+    fill(0);
     for(var i = 0; i<is.length;i++){
         push();
         translate(width/2-i*textWidth("I")+o,(height/2)-is[i].y);
         rotate(is[i].rot);
         text("I",0,0);
+        fill(255,50,50);
+        triangle(-13,-10,-10,-30,7,-20);
+        fill(255);
+        ellipse(-10,-30,10,10);
         pop();
     }
     textStyle(NORMAL);
@@ -117,6 +140,7 @@ function game() {
         obs[obs.length]=width;
     }
     for(var i = 0; i<obs.length;i++){
+        fill(255,50,50);
         rect(obs[i],ly-60,20,60);
         if(obs[i]<width/2+10&&obs[i]>width/2-10){
             if (y < 90) {
@@ -193,6 +217,8 @@ function game() {
     }else{
         jmpLim=2;
     }
+
+
 }
 
 var loGrav=0, pwrJmp=0, triJmp=0;
