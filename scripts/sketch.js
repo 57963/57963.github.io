@@ -51,6 +51,9 @@ function draw(){
         var s = snow[i];
         ellipse(s.x+cos(s.y*s.mult)*s.a,s.y,10,10);
         s.y++;
+        if(y>height){
+            snow.splice(i,1);
+        }
     }
 }
 
