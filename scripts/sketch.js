@@ -148,6 +148,7 @@ function game() {
         if(obs[i]<width/2+10&&obs[i]>width/2-10){
             if (y < 90) {
                 lost=true;
+                $("#fbPage").css("display","inline");
                 high = ((icount+Math.round(Math.random()*5))+5);
                 lostFrame = frameCount;
             }
