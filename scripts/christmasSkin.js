@@ -279,3 +279,5 @@ function title(){
 $(window).resize(function(){
     c.resize(s.width(),s.height());
 });
+
+setup();
