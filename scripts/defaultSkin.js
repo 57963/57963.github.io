@@ -12,6 +12,10 @@ function setup(){
     }
     obs[0] = width;
     fill(0);
+    if(playSound) {
+       snd.play();
+       snd.setVolume(0.25);
+    }
 }
 
 var is=[];
@@ -33,6 +37,7 @@ function draw(){
         }else{
             fill(0);
             loseScreen();
+            if(playSound) snd.rate(constrain(snd.playbackRate - 0.02, 0, 1));
         }
 
     }
@@ -199,7 +204,13 @@ function game() {
         jmpLim=2;
     }
 
-
+    if(playSound) {
+        if(!snd.isPlaying()) {
+            snd.jump(4);
+        }
+        var rt = map(y, 0, 1000, 1, 1.15);
+        snd.rate(rt);
+    }
 }
 
 var loGrav=0, pwrJmp=0, triJmp=0;
