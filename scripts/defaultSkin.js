@@ -86,7 +86,8 @@ function game() {
         textAlign(LEFT,BOTTOM);
         text("You have "+icount+" i's on your boi.",10,map(frameCount,200,250,height+50,height-10));
         textAlign(RIGHT,TOP);
-        text("Sound is "+(playSound?"on":"off")+", press M to "+(!playSound?"un":"")+"mute.",width-10,map(frameCount,200,250,-50,10));
+        textSize(30);
+        text("Sound is "+(playSound?"on":"off")+", press M or top right to "+(!playSound?"un":"")+"mute.",width-10,map(frameCount,200,250,-50,10));
         textSize(map(frameCount,200,250,width/5.5,55));
     }else{
         ly = height/2+30;
@@ -94,7 +95,8 @@ function game() {
         textAlign(LEFT,BOTTOM);
         text("You have "+icount+" i's on your boi.",10,height-10);
         textAlign(RIGHT,TOP);
-        text("Sound is "+(playSound?"on":"off")+", press M to "+(!playSound?"un":"")+"mute.",width-10,10);
+        textSize(30);
+        text("Sound is "+(playSound?"on":"off")+", press M or top right to "+(!playSound?"un":"")+"mute.",width-10,10);
         textSize(55);
     }
     stroke(0);
@@ -231,7 +233,14 @@ function mousePressed(){
             }
         }
     }else{
-        if(j<jmpLim){
+        if(mouseX>width-150&&mouseY<150){
+            playSound=!playSound;
+            if(playSound){
+                snd.play();
+            }else{
+                snd.pause();
+            }
+        }else if(j<jmpLim){
             if(j>0){
                 f=1;
             }
