@@ -3,13 +3,18 @@
     <title>yeahboi</title>
     <script src="libs/jquery-3.1.1.min.js"></script>
     <script src="libs/p5.min.js"></script>
+    <script src="libs/p5.sound.min.js"></script>
     <script>
+        function preload() {
+            snd = loadSound('assets/snd.mp3');
+        }
         function setup() {
             if (getURLParams().skin == "christmas") {
                 $.getScript("scripts/christmasSkin.js")
             } else {
                 $.getScript("scripts/defaultSkin.js")
             }
+            playSound = (getURLParams().sound == "true");
         }
     </script>
     <link rel="stylesheet" href="styles/style.css">
