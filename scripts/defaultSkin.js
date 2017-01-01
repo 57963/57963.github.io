@@ -77,19 +77,24 @@ function game() {
         v=0;
         j=0;
     }
-    textAlign(LEFT,BOTTOM);
+
     var ly;
     fill(0);
     if(frameCount<250){
         ly = map(frameCount,200,250,height,height/2+30);
-
         textSize(40);
+        textAlign(LEFT,BOTTOM);
         text("You have "+icount+" i's on your boi.",10,map(frameCount,200,250,height+50,height-10));
+        textAlign(RIGHT,TOP);
+        text("Sound is "+(playSound?"on":"off")+", press M to "+(!playSound?"un":"")+"mute.",width-10,map(frameCount,200,250,-50,10));
         textSize(map(frameCount,200,250,width/5.5,55));
     }else{
         ly = height/2+30;
         textSize(40);
+        textAlign(LEFT,BOTTOM);
         text("You have "+icount+" i's on your boi.",10,height-10);
+        textAlign(RIGHT,TOP);
+        text("Sound is "+(playSound?"on":"off")+", press M to "+(!playSound?"un":"")+"mute.",width-10,10);
         textSize(55);
     }
     stroke(0);
@@ -167,17 +172,17 @@ function game() {
             }
             pwrs.splice(i,1);
         }
-        for(var u =0;u<prts.length;u++){
-            prts[u].v.y+=0.04;
-            if(prts[u].s.x<=0||prts[u].s.x>=width){
-                prts[u].v.x=-prts[u].v.x;
-            }
-            prts[u].s.x+=prts[u].v.x;
-            prts[u].s.y+=prts[u].v.y;
-            ellipse(prts[u].s.x,prts[u].s.y,5,5);
-            if(prts[u].s.y>height){
-                prts.splice(u,1);
-            }
+    }
+    for(var u =0;u<prts.length;u++){
+        prts[u].v.y+=0.04;
+        if(prts[u].s.x<=0||prts[u].s.x>=width){
+            prts[u].v.x=-prts[u].v.x;
+        }
+        prts[u].s.x+=prts[u].v.x;
+        prts[u].s.y+=prts[u].v.y;
+        ellipse(prts[u].s.x,prts[u].s.y,5,5);
+        if(prts[u].s.y>height){
+            prts.splice(u,1);
         }
     }
     textAlign(RIGHT,TOP);
@@ -185,21 +190,21 @@ function game() {
     if(loGrav>0){
         loGrav--;
         grav=0.4;
-        text("Low gravity",width,20);
+        text("Low gravity",width,40);
     }else{
         grav=0.5;
     }
     if(pwrJmp>0){
         pwrJmp--;
         pwr=17;
-        text("Power jump",width,80);
+        text("Power jump",width,100);
     }else{
         pwr=13;
     }
     if(triJmp>0){
         triJmp--;
         jmpLim=3;
-        text("Triple jump",width,140);
+        text("Triple jump",width,160);
     }else{
         jmpLim=2;
     }
@@ -219,7 +224,11 @@ var grav = 0.5, pwr = 13, jmpLim = 2;
 function mousePressed(){
     if(lost){
         if(frameCount>lostFrame+60) {
-            location.reload();
+            if(playSound){
+                window.location.href = "?";
+            }else{
+                window.location.href = "?sound=false";
+            }
         }
     }else{
         if(j<jmpLim){
@@ -233,7 +242,17 @@ function mousePressed(){
 }
 
 function keyPressed(){
-    mousePressed();
+    if(key == 'M'){
+        playSound = ! playSound;
+        if(playSound){
+            snd.play();
+        }else{
+            snd.pause();
+        }
+    }else{
+        mousePressed();
+    }
+
 }
 
 var boi=" BOI";
