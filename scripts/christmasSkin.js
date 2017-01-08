@@ -2,6 +2,9 @@ var c;
 var s;
 
 function setup(){
+    s = $("#sketch");
+    c=createCanvas(s.width(),s.height());
+    c.parent("sketch");
     textSize(55);
     icount = Math.round(width/2/textWidth("I"));
     for(var i = 0 ; i < icount;i++){
@@ -9,6 +12,10 @@ function setup(){
     }
     obs[0] = width;
     fill(0);
+    if(playSound) {
+       snd.play();
+       snd.setVolume(0.25);
+    }
 }
 
 var is=[];
@@ -47,11 +54,27 @@ function draw(){
             snow.splice(i,1);
         }
     }
-    if(!lost&&micMode){
-        micCheck();
-    }
 }
 
+function loseScreen() {
+    textAlign(CENTER,BOTTOM);
+    textSize(width/6);
+    text("YOU LOSE",width/2,height/2);
+    textAlign(CENTER,TOP);
+    textSize(width/12);
+    text("With "+icount+" i's on your boi.",width/2,height/2);
+    boi = "YEA BO";
+    textAlign(CENTER,CENTER);
+    textSize(10);
+    for(var i = 0; i< icount;i++){
+        boi +="I";
+    }
+    text("("+boi+")",width/2,height/2+width/12+50);
+    textSize(40);
+    text("Global highscore: "+high,width/2,height-100);
+    textSize(50);
+    text("Click to restart.",width/2,height-50);
+}
 var high;
 var o;
 var y=0,v=0;
@@ -75,9 +98,7 @@ function game() {
         text("You have "+icount+" i's on your boi.",10,map(frameCount,200,250,height+50,height-10));
         textAlign(RIGHT,TOP);
         textSize(30);
-        if(!micMode) {
-            text("Sound is " + (playSound ? "on" : "off") + ", press M or top right to " + (!playSound ? "un" : "") + "mute.", width - 10, map(frameCount, 200, 250, -50, 10));
-        }
+        text("Sound is "+(playSound?"on":"off")+", press M or top right to "+(!playSound?"un":"")+"mute.",width-10,map(frameCount,200,250,-50,10));
         textSize(map(frameCount,200,250,width/5.5,55));
     }else{
         ly = height/2+30;
@@ -130,7 +151,10 @@ function game() {
         rect(obs[i],ly-60,20,60);
         if(obs[i]<width/2+10&&obs[i]>width/2-10){
             if (y < 90) {
-                lose();
+                lost=true;
+                $("#fbPage").css("display","inline");
+                high = ((icount+Math.round(Math.random()*5))+5);
+                lostFrame = frameCount;
             }
         }
         obs[i]-=3.8;
@@ -202,6 +226,7 @@ function game() {
     }else{
         jmpLim=2;
     }
+
     if(playSound) {
         if(!snd.isPlaying()) {
             snd.jump(4);
@@ -217,19 +242,11 @@ var grav = 0.5, pwr = 13, jmpLim = 2;
 function mousePressed(){
     if(lost){
         if(frameCount>lostFrame+60) {
-            if(mouseX>width/2-450&&mouseX>width/2+450){
-                if(mouseY>20&&mouseY>80){
-                    micMode=true;
-                }
+            if(playSound){
+                window.location.href = "?skin=christmas";
+            }else{
+                window.location.href = "?skin=christmas&sound=false";
             }
-            var queryString="?skin=christmas";
-            if(micMode){
-                queryString+="&hardMode=true";
-            }
-            if(!playSound){
-                queryString += "&sound=false";
-            }
-            window.location.href=queryString;
         }
     }else{
         if(mouseX>width-150&&mouseY<150){
