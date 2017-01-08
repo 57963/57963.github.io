@@ -5,6 +5,10 @@
     <script src="libs/p5.min.js"></script>
     <script src="libs/p5.sound.min.js"></script>
     <script>
+        var micMode=false;
+        var minMicLevel = 0.05;
+        var mic;
+        var alerted = false;
         function preload() {
             snd = loadSound('assets/snd.mp3');
         }
@@ -14,7 +18,69 @@
             } else {
                 $.getScript("scripts/defaultSkin.js")
             }
+            mic = new p5.AudioIn();
             playSound = (getURLParams().sound != "false");
+            if(getURLParams().hardMode == "true"){
+                playSound=false;
+                micMode=true;
+                mic.start();
+                mic.getLevel();
+            }
+            if(playSound) {
+                snd.play();
+                snd.setVolume(0.25);
+            }
+            s = $("#sketch");
+            c=createCanvas(s.width(),s.height());
+            c.parent("sketch");
+        }
+
+        function loseScreen() {
+            textAlign(CENTER,BOTTOM);
+            textSize(width/6);
+            text("YOU LOSE",width/2,height/2);
+            textAlign(CENTER,TOP);
+            textSize(width/12);
+            text("With "+icount+" i's on your boi.",width/2,height/2);
+            boi = "YEA BO";
+            textAlign(CENTER,CENTER);
+            textSize(10);
+            for(var i = 0; i< icount;i++){
+                boi +="I";
+            }
+            text("("+boi+")",width/2,height/2+width/12+50);
+            textSize(40);
+            text("Global highscore: "+high,width/2,height-100);
+            textSize(50);
+            text("Click to restart.",width/2,height-50);
+            textSize(30);
+            fill(200,50,50);
+            rect(width/2-450,20,900,60);
+            fill(0);
+            if(micMode){
+                text("Little quieter? Go back to easy mode and save your vocal chords", width / 2, 50);
+            }else {
+                text("Got big lungs? Go to hard mode and play as long as you can say!", width / 2, 50);
+            }
+        }
+
+        function micCheck() {
+            fill(200,50,50);
+            rect(10,(height/2)-200,20,400);
+            fill(50,200,50);
+            rect(10,(height/2)-200,20,400-minMicLevel*1000);
+            fill(0);
+            ellipse(20,((height/2)+200)-mic.getLevel(0.95)*1000,10,10);
+            if(mic.getLevel(0.95)<minMicLevel&&frameCount>300){
+                lose();
+            }
+        }
+
+        function lose(){
+            lost=true;
+            $("#fbPage").css("display","inline");
+            high = ((icount+Math.round(Math.random()*5))+5);
+            lostFrame = frameCount;
         }
     </script>
     <link rel="stylesheet" href="styles/style.css">
