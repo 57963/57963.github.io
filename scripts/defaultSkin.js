@@ -24,6 +24,8 @@ var pwrs=[];
 var prts=[];
 var icount;
 
+var players = [];
+
 function draw(){
     fill(0);
     background(255);
@@ -250,7 +252,16 @@ function mousePressed(){
     }
 }
 
+function addPlayer(key){
+    players[players.length] = {jumpKey:key, y:0, v:0, j:0, f:0};
+}
+
 function keyPressed(){
+    if(frameCount<250){
+        addPlayer()
+    }else{
+
+    }
     if(key == 'M'){
         playSound = ! playSound;
         if(playSound){
