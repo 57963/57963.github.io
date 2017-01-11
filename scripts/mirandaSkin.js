@@ -9,7 +9,7 @@ function setup(){
     textSize(55);
     icount = Math.round(width/2/textWidth("I"));
     for(var i = 0 ; i < icount;i++){
-        is[i]={y:0,rot:0};
+        is[i]={y:0,rot:0,img:Math.min(5,Math.round(Math.random()*6))};
     }
     obs[0] = width;
     fill(0);
@@ -111,7 +111,7 @@ function game() {
         for(var i = is.length-2;i>=0;i--){
             is[i+1]=is[i];
         }
-        is[0]={y:y,rot:0};
+        is[0]={y:y,rot:0,img:Math.min(5,Math.round(Math.random()*6))};
         icount++;
         if(f>0){
             is[0].rot=TWO_PI/10*f;
@@ -130,7 +130,8 @@ function game() {
         translate(width/2-i*textWidth("I")+o,(height/2)-is[i].y);
         rotate(is[i].rot);
         text("I",0,0);
-        image(faces[0],-55,-100);
+
+        image(faces[is[i].img],-27,-50);
         pop();
     }
     textStyle(NORMAL);
@@ -232,9 +233,9 @@ function mousePressed(){
     if(lost){
         if(frameCount>lostFrame+60) {
             if(playSound){
-                window.location.href = "?";
+                window.location.href = "?skin=miranda";
             }else{
-                window.location.href = "?sound=false";
+                window.location.href = "?skin=miranda&sound=false";
             }
         }
     }else{

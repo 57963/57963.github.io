@@ -1,3 +1,4 @@
+
 var c;
 var s;
 
@@ -13,8 +14,8 @@ function setup(){
     obs[0] = width;
     fill(0);
     if(playSound) {
-       snd.play();
-       snd.setVolume(0.25);
+        snd.play();
+        snd.setVolume(0.25);
     }
 }
 
@@ -23,8 +24,6 @@ var obs=[];
 var pwrs=[];
 var prts=[];
 var icount;
-
-var players = [];
 
 function draw(){
     fill(0);
@@ -228,7 +227,7 @@ var grav = 0.5, pwr = 13, jmpLim = 2;
 function mousePressed(){
     if(lost){
         if(frameCount>lostFrame+60) {
-            if(playSound){
+            if(!playSound){
                 window.location.href = "?";
             }else{
                 window.location.href = "?sound=false";
@@ -252,16 +251,7 @@ function mousePressed(){
     }
 }
 
-function addPlayer(key){
-    players[players.length] = {jumpKey:key, y:0, v:0, j:0, f:0};
-}
-
 function keyPressed(){
-    if(frameCount<250){
-        addPlayer()
-    }else{
-
-    }
     if(key == 'M'){
         playSound = ! playSound;
         if(playSound){
