@@ -1,6 +1,7 @@
 var c;
 var s;
 var faces = [];
+var snow = [];
 
 function setup(){
     s = $("#sketch");
@@ -44,6 +45,22 @@ function draw(){
             if(playSound) snd.rate(constrain(snd.playbackRate - 0.02, 0, 1));
         }
 
+    }
+    if(Math.random()<0.04){
+        snow[snow.length] = {x:Math.random()*width,a:Math.random()*50,y:0,mult:Math.random()*0.06,img:Math.min(5,Math.round(Math.random()*6)),theta:Math.random()*3.141*2,rot:Math.random()*0.5-0.25};
+    }
+    for(var i = 0 ; i<snow.length;i++){
+        var s = snow[i];
+        push();
+        translate(s.x+cos(s.y*s.mult)*s.a-27,s.y-50);
+        rotate(s.theta);
+        image(faces[s.img],-27,-50);
+        pop();
+        s.y++;
+        s.theta+=s.rot;
+        if(y>height){
+            snow.splice(i,1);
+        }
     }
     noStroke();
 }
