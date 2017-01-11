@@ -22,7 +22,7 @@ function setup(){
         faces[i] = loadImage("assets/mir/"+i+".png");
     }
 }
-
+//
 var is=[];
 var obs=[];
 var pwrs=[];
