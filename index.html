@@ -6,7 +6,11 @@
     <script src="libs/p5.sound.min.js"></script>
     <script>
         function preload() {
-            snd = loadSound('assets/snd.mp3');
+            switch (getURLParams().skin){
+                case "miranda":snd = loadSound('assets/mir/miranda.mp3');break;
+                default: snd = loadSound('assets/snd.mp3');
+            }
+
         }
         function setup() {
             switch (getURLParams().skin){
