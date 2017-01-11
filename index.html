@@ -9,10 +9,15 @@
             snd = loadSound('assets/snd.mp3');
         }
         function setup() {
+            switch (getURLParams().skin){
+                case "christmas":$.getScript("scripts/christmasSkin.js");break;
+                case "miranda":$.getScript("scripts/mirandaSkin.js");break;
+                default: $.getScript("scripts/defaultSkin.js")
+            }
             if (getURLParams().skin == "christmas") {
                 $.getScript("scripts/christmasSkin.js")
             } else {
-                $.getScript("scripts/defaultSkin.js")
+
             }
             playSound = (getURLParams().sound != "false");
         }
