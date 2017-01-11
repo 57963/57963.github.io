@@ -3,7 +3,6 @@ var s;
 var faces = [];
 
 function setup(){
-    console.info("miranda");
     s = $("#sketch");
     c=createCanvas(s.width(),s.height());
     c.parent("sketch");
