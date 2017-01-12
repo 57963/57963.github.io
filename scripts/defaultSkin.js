@@ -227,7 +227,7 @@ var grav = 0.5, pwr = 13, jmpLim = 2;
 function mousePressed(){
     if(lost){
         if(frameCount>lostFrame+60) {
-            if(!playSound){
+            if(playSound){
                 window.location.href = "?";
             }else{
                 window.location.href = "?sound=false";
