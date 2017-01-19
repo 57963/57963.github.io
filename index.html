@@ -1,32 +1,12 @@
-<html><!--hard-->
+<html>
 <head>
     <title>yeahboi</title>
+    <link rel="stylesheet" href="styles/style.css">
     <script src="libs/jquery-3.1.1.min.js"></script>
     <script src="libs/p5.min.js"></script>
     <script src="libs/p5.sound.min.js"></script>
-    <script>
-        function preload() {
-            switch (getURLParams().skin){
-                case "miranda":snd = loadSound('assets/mir/miranda.mp3');break;
-                default: snd = loadSound('assets/snd.mp3');
-            }
+    <script src="scripts/main.js"></script>
 
-        }
-        function setup() {
-            switch (getURLParams().skin){
-                case "christmas":$.getScript("scripts/christmasSkin.js");break;
-                case "miranda":$.getScript("scripts/mirandaSkin.js");break;
-                default: $.getScript("scripts/defaultSkin.js")
-            }
-            if (getURLParams().skin == "christmas") {
-                $.getScript("scripts/christmasSkin.js")
-            } else {
-
-            }
-            playSound = (getURLParams().sound != "false");
-        }
-    </script>
-    <link rel="stylesheet" href="styles/style.css">
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
                 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
