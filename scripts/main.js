@@ -66,7 +66,7 @@ function setup() {
 }
 
 function loseScreen() {
-    if(icount>200){
+    if(icount>500){
         stopped = true;
         if(Object.keys(getURLParams()).length>0){
             s.html("<iframe height='50%' width='100%' src='"+window.location.href+"&depth="+depth+"&sound=false'></iframe><br><iframe height='50%' width='100%' src='"+window.location.href+"&depth="+depth+"&sound=false'></iframe>");
