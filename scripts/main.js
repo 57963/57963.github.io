@@ -125,11 +125,12 @@ function title(){
         boi+="I";
     }
 }
+var restart = true;
 
 
 function mousePressed(){
     if(lost){
-        if(frameCount>lostFrame+60) {
+        if(frameCount>lostFrame+60 && restart) {
             var params = "?";
             if(!playSound){
                 params+="sound=false&";
